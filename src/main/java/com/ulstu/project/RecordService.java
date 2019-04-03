@@ -1,11 +1,13 @@
 package com.ulstu.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RecordService {
@@ -26,6 +28,14 @@ public class RecordService {
     Map getTop() {
         Map<String, List<RecordDto>> map = new HashMap();
         map.put("records", recordRepository.findFirst10ByOrderByTimeAsc());
+        return  map;
+    }
+
+    Map getTopByDif(String difficulty) {
+        Map<String, List<RecordDto>> map = new HashMap();
+        List<RecordDto>  records = recordRepository.findAllByDifficulty(difficulty);
+        records.sort(Comparator.comparingInt(RecordDto::getTime));
+        map.put("records", records);
         return  map;
     }
 }

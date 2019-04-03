@@ -7,4 +7,6 @@ import java.util.List;
 public interface RecordRepository  extends CrudRepository<RecordDto, Long> {
 
     List<RecordDto> findFirst10ByOrderByTimeAsc();
+
+    List<RecordDto> findAllByDifficulty(String difficulty);
 }

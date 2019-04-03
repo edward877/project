@@ -24,4 +24,9 @@ public class MainController {
     public Map getAll() {
         return recordService.getTop();
     }
+
+    @GetMapping("/difficulty")
+    public Map getDifficulty(String difficulty) {
+        return recordService.getTopByDif(difficulty);
+    }
 }
